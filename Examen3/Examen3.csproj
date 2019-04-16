@@ -61,20 +61,21 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Service1.svc" />
+    <Content Include="Soporte.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service1.svc.cs">
-      <DependentUpon>Service1.svc</DependentUpon>
+    <Compile Include="DAO\SoporteDAO.cs" />
+    <Compile Include="modelos\TiqueteNota.cs" />
+    <Compile Include="modelos\Tiquete.cs" />
+    <Compile Include="Soporte.svc.cs">
+      <DependentUpon>Soporte.svc</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="ISoporte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DAO\" />
-    <Folder Include="modelos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
