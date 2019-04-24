@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Examen3.DAO;
+using Examen3.modelos;
+using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -8,26 +11,23 @@ using System.Text;
 
 namespace Examen3
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public class Service1 : ISoporte
+    public class Soporte : ISoporte
     {
-        public string GetData(int value)
+        private SoporteDAO soporteDAO = new SoporteDAO();
+
+        public List<Tiquete> ListarTiquetes()
         {
-            return string.Format("You entered: {0}", value);
+            return soporteDAO.ListarTiquetes();
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public Tiquete ObtenerTiquete(string id)
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            return soporteDAO.ObtenerTiquete(Convert.ToInt32(id));
+        }
+        public void Options()
+        {
+            WebOperationContext.Current.OutgoingResponse.Headers.Add("X-MyHeader", "value");
+            WebOperationContext.Current.OutgoingResponse.Headers.Add("Public", "OPTIONS,POST,GET,PUT,DELETE");
         }
     }
 }

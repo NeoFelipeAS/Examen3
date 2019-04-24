@@ -9,7 +9,7 @@ namespace Examen3.DAO
     {
         private string CadenaConexion = "Data Source=ALTESEIN\\SQLEXPRESS;Initial Catalog=TiquetesDB;Integrated Security=SSPI";
 
-        public Tiquete Obtener(int id)
+        public Tiquete ObtenerTiquete(int id)
         {
             Tiquete tiqueteEncontrado = null;
             string sql = "SELECT * FROM tiquetes WHERE id = @id";
@@ -35,6 +35,32 @@ namespace Examen3.DAO
             return tiqueteEncontrado;
         }
 
+        public List<Tiquete> ListarTiquetes()
+        {
+            List<Tiquete> tiquetesEncontrados = new List<Tiquete>();
+            Tiquete tiqueteEncontrado = null;
+            string sql = "SELECT * FROM tiquetes";
+            using (SqlConnection conexion = new SqlConnection(CadenaConexion))
+            {
+                conexion.Open();
+                using (SqlCommand comando = new SqlCommand(sql, conexion))
+                {
+                    using (SqlDataReader resultado = comando.ExecuteReader())
+                    {
+                        while (resultado.Read())
+                        {
+                            tiqueteEncontrado = new Tiquete()
+                            {
+                                Id = (int)resultado["id"]
+                            };
+                            tiquetesEncontrados.Add(tiqueteEncontrado);
+                        }
+                    }
+                }
+            }
+            return tiquetesEncontrados;
+        }
+
         public Tiquete Crear(Tiquete tiqueteACrear)
         {
             Tiquete tiqueteCreado = null;
@@ -49,7 +75,7 @@ namespace Examen3.DAO
                     comando.ExecuteNonQuery();
                 }
             }
-            tiqueteCreado = Obtener(tiqueteACrear.Id);
+            tiqueteCreado = ObtenerTiquete(tiqueteACrear.Id);
             return tiqueteCreado;
         }
 

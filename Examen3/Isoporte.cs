@@ -1,47 +1,24 @@
 ﻿using System;
+using Examen3.modelos;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
+
 
 namespace Examen3
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface ISoporte
     {
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "tiquetes", ResponseFormat = WebMessageFormat.Json)]
+        List<Tiquete> ListarTiquetes();
 
         [OperationContract]
-        string GetData(int value);
+        [WebInvoke(Method = "GET", UriTemplate = "tiquetes/{id}", ResponseFormat = WebMessageFormat.Json)]
+        Tiquete ObtenerTiquete(string id);
 
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        // TODO: Add your service operations here
-    }
-
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        [WebInvoke(Method = "OPTIONS", UriTemplate = "*")]
+        void Options();
     }
 }
