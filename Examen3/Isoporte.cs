@@ -18,6 +18,18 @@ namespace Examen3
         [WebInvoke(Method = "GET", UriTemplate = "tiquetes/{id}", ResponseFormat = WebMessageFormat.Json)]
         Tiquete ObtenerTiquete(string id);
 
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "tiquetes", ResponseFormat = WebMessageFormat.Json)]
+        Tiquete CrearTiquete(Tiquete tiqueteACrear);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "notas/{id}", ResponseFormat = WebMessageFormat.Json)]
+        List<TiqueteNota> ListarNotas(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "notas", ResponseFormat = WebMessageFormat.Json)]
+        TiqueteNota CrearNota(TiqueteNota notaACrear);
+
         [WebInvoke(Method = "OPTIONS", UriTemplate = "*")]
         void Options();
     }

@@ -21,7 +21,7 @@ namespace Examen3.modelos
         [DataMember]
         public int Activo { get; set; }
         [DataMember]
-        public DateTime Fecha_alerta { get; set; }
+        public DateTime Fecha { get; set; }
         [DataMember]
         public string Tipo { get; set; }
         [DataMember]

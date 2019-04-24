@@ -24,6 +24,24 @@ namespace Examen3
         {
             return soporteDAO.ObtenerTiquete(Convert.ToInt32(id));
         }
+
+        public Tiquete CrearTiquete(Tiquete tiqueteACrear)
+        {
+            Tiquete Existente = soporteDAO.ObtenerTiquete(tiqueteACrear.Id);
+            return soporteDAO.CrearTiquete(tiqueteACrear);
+        }
+
+        public List<TiqueteNota> ListarNotas(string id)
+        {
+            return soporteDAO.ListarNotas(Convert.ToInt32(id));
+        }
+
+        public TiqueteNota CrearNota(TiqueteNota notaACrear)
+        {
+            TiqueteNota Existente = soporteDAO.ObtenerNota(notaACrear.Id);
+            return soporteDAO.CrearNota(notaACrear);
+        }
+
         public void Options()
         {
             WebOperationContext.Current.OutgoingResponse.Headers.Add("X-MyHeader", "value");
