@@ -16,13 +16,40 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         return view('home');
+    }
+    public function tiquetes()
+    {
+        return view('tiquetes');
+    }
+    public function tiqueteDetalle()
+    {
+        return view('tiquete-detalle');
+    }
+    public function talleres()
+    {
+        return view('talleres');
+    }
+    public function usuarios()
+    {
+        return view('usuarios');
+    }
+    public function clientes()
+    {
+        return view('clientes');
+    }
+    public function facturas()
+    {
+        return view('facturas');
+    }
+    public function facturaDetalle()
+    {
+        return view('factura-detalle');
+    }
+    public function reportes()
+    {
+        return view('reportes');
     }
 }

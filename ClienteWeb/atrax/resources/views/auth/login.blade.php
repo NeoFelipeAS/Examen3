@@ -22,6 +22,9 @@
                         </div>
                         <hr class="col-md-8 mb-3">
                         <button class="btn btn-primary " type="submit">Ingresar</button>
+                        <a class="btn btn-link text-info" href="{{ route('password.request') }}">
+                            Recuperar clave
+                        </a>
                     </form>
                 </div>
             </div>
