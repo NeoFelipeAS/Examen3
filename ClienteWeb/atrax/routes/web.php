@@ -18,6 +18,9 @@ Route::get('/facturas', 'HomeController@facturas');
 Route::get('/factura-detalle', 'HomeController@facturaDetalle');
 Route::get('/reportes', 'HomeController@reportes');
 
+Route::post('/subir-foto', 'HomeController@subirFoto');
+Route::post('/crear-usuario', 'HomeController@crearUsuario');
+
 
 // Authentication Routes...
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

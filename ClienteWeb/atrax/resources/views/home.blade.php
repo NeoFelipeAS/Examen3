@@ -8,12 +8,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <img src="/img/beach-boy-daytime-1121796.jpg" alt="" class="img-fluid border">
+                <img src="/{{ auth()->user()->foto }}" alt="" class="img-fluid border">
             </div>
             <div class="col-md-4 offset-md-1">
                 <hr class="bg-light">
                 <h1>{{ Auth::user()->name }}</h1>
-                <h3>Administrador</h3>
+                <h3>{{ Auth::user()->rol }}</h3>
             </div>
             <div class="col-md-3">
                 <h3>Logros</h3>
@@ -26,8 +26,9 @@
         <hr class="bg-light">
         <div class="row">
             <div class="col-md-4">
-                <form action="" class="border-white border m-1 p-2">
+                <form class="border-white border m-1 p-2" action="/subir-foto" method="post" enctype="multipart/form-data">
                     <label for="photo">Cambiar foto</label>
+                    @csrf
                     <div class="form-group my-2">
                         <input type="file" class="form-control-file" name="photo">
                     </div>
@@ -37,13 +38,14 @@
             </div>
             <div class="col-md-5 offset-md-2">
                 <h4 class="mb-3">Datos</h4>
-                <p>Nombre de usuario: amenta</p>
-                <p>Correo: amenta@atrax.com</p>
-                <p>Rol: Administrador</p>
+                <p>Nombre de usuario: {{ Auth::user()->name }}</p>
+                <p>Correo: {{ Auth::user()->email }}</p>
+                <p>Rol: {{ Auth::user()->rol }}</p>
                 <p>Taller: GAM Taller 1</p>
                 <p class="text-muted">Este taller es la central de reparaciones.</p>
             </div>
         </div>
+        @if(auth()->user()->rol === 'administrador')
         <div class="row justify-content-center">
             <div class="col-md-3">
                 <div class="card bg-warning">
@@ -70,6 +72,9 @@
                 </div>
             </div>
         </div>
+        @else
+        <h1 class="title">USTED ES UN SIMPLE TECNICO</h1>
+        @endif
     </div>
 </div>
 @endsection

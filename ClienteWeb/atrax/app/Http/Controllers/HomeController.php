@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -34,7 +35,11 @@ class HomeController extends Controller
     }
     public function usuarios()
     {
-        return view('usuarios');
+        if(Auth()->user()->rol === "tecnico") {
+            return redirect('/home')->with('status', 'Solo los administradores pueden acceder al modulo usuarios.');;
+        }
+        $users = User::all();
+        return view('usuarios', compact('users'));
     }
     public function clientes()
     {
@@ -51,5 +56,33 @@ class HomeController extends Controller
     public function reportes()
     {
         return view('reportes');
+    }
+    public function subirFoto(Request $request)
+    {
+        if ($request->hasFile('photo')) {
+            if($request->file('photo')->isValid()) {
+                try {
+                    $file = $request->file('photo');
+                    $name = time() . '.' . $file->getClientOriginalExtension();
+                    $user = auth()->user();
+                    $user->foto = 'storage/'.$name;
+                    $request->file('photo')->move("storage", $name);
+                    $user->save();
+                } catch (Illuminate\Filesystem\FileNotFoundException $e) {
+
+                }
+            }
+        }
+        return redirect('/home');
+    }
+    public function crearUsuario(Request $request)
+    {
+        $user = new User();
+        $user->password = bcrypt('1234');
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->rol = 'tecnico';
+        $user->save();
+        return redirect('/usuarios');
     }
 }

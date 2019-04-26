@@ -25,6 +25,11 @@
     <body>
         <div id="app">
             @include('layouts.nav')
+            @if (session('status'))
+            <div class="alert alert-info">
+                <i class="fas fa-exclamation-circle"></i> {{ session('status') }}
+            </div>
+        @endif
             @yield('content')
         </div>
 
