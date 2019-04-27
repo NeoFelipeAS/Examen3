@@ -4,251 +4,85 @@
 
 @section('content')
 @include('layouts.nav-app')
-
-		<div class="container-fluid">
-			<h1 class="mb-3">Manejo de tiquetes</h1>
-			<div class="row">
-				<div class="col-md-8 mx-auto bg-light p-2 rounded">
-					<h2 class="text-dark text-center">Tiquetes</h2>
-					<button type="button" class="btn btn-primary my-4" data-toggle="modal" data-target="#exampleModal">
-						Agregar tiquete
-					</button>
-					<table class="table table-responsive text-dark">
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<h4 class="my-3 text-center">Registrar tiquet<span class="vim-caret">e</span></h4>
+			@if(auth()->user()->rol === 'administrador')
+			<form class="needs-validation border border-primary rounded p-2">
+                @csrf
+				<div class="form-group mb-3">
+					<label for="text">Marca</label>
+					<input type="text" class="form-control" name="marca" required>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Ram</label>
+					<input type="text" class="form-control" name="ram" required>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Disco duro</label>
+					<input type="text" class="form-control" name="hhd" required>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Procesador</label>
+					<input type="text" class="form-control" name="procesador" required>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Descripción</label>
+					<textarea class="form-control" name="descripcion" cols="20" rows="4" required></textarea>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Tipo</label>
+					<select class="custom-select d-block w-100" name="tipo" required>
+						<option>Revision</option>
+						<option>Mantenimiento</option>
+						<option>Reparacion</option>
+						<option>Reemplazo</option>
+					</select>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Cliente</label>
+					<select class="custom-select d-block w-100" name="cliente_id" required>
+						@foreach($clientes as $cliente)
+						<option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Usuario</label>
+					<select class="custom-select d-block w-100" name="usuario_id" required>
+						@foreach($users as $user)
+						<option value="{{$user->id}}">{{$user->name}}</option>
+						@endforeach
+					</select>
+				</div>
+					<input type="hidden" class="form-control" name="estado" value="Nuevo" required>
+					<input type="hidden" class="form-control" value="1" name="taller_id" required>
+				<hr class="mb-4">
+				<button class="btn btn-primary btn-lg btn-block" type="submit">Registrar</button>
+			</form>
+			@endif
+		</div>
+		<div class="col-md-7 p-2">
+			<h1 class="text-center">Lista de tiquetes</h1>
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-bordered table-responsive">
 						<thead class="thead-dark">
-								<tr>
+							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Item</th>
-								<th scope="col">Item</th>
-								<th scope="col">Item</th>
-								<th scope="col">Actions</th>
-								</tr>
+								<th scope="col">Nombre</th>
+								<th scope="col">Descripción</th>
+								<th scope="col">Cantidad de tecnicos</th>
+							</tr>
 						</thead>
-						<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										<a href="#">
-										Some item on your list
-										</a>
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										<a href="/tiquete-detalle" class="btn btn-sm btn-secondary my-1 my-sm-0">
-										<span class="fas fa-edit mr-1"></span>
-										Inspeccionar</a>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										<a href="#">
-										Some item on your list
-										</a>
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										<a href="#" class="btn btn-sm btn-secondary my-1 my-sm-0">
-										<span class="fas fa-edit mr-1"></span>
-										Inspeccionar</a>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										<a href="#">
-										Some item on your list
-										</a>
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										<a href="#" class="btn btn-sm btn-secondary my-1 my-sm-0">
-										<span class="fas fa-edit mr-1"></span>
-										Inspeccionar</a>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										<a href="#">
-										Some item on your list
-										</a>
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										<a href="#" class="btn btn-sm btn-secondary my-1 my-sm-0">
-										<span class="fas fa-edit mr-1"></span>
-										Inspeccionar</a>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										<a href="#">
-										Some item on your list
-										</a>
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										<a href="#" class="btn btn-sm btn-secondary my-1 my-sm-0">
-										<span class="fas fa-edit mr-1"></span>
-										Inspeccionar</a>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										<a href="#">
-										Some item on your list
-										</a>
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										Text
-									</td>
-									<td>
-										<a href="#" class="btn btn-sm btn-secondary my-1 my-sm-0">
-										<span class="fas fa-edit mr-1"></span>
-										Inspeccionar</a>
-									</td>
-								</tr>
+						<tbody class="font-weight-bold bg-light text-dark">
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
-		  <div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Crear tiquete</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-			<div class="modal-body">
-<form class="needs-validation border border-primary p-2" novalidate>
-	<div class="row">
-		<div class="col-md-6 mb-3">
-			<label for="firstName">First name</label>
-			<input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-			<div class="invalid-feedback">
-			Valid first name is required.
-			</div>
-		</div>
-		<div class="col-md-6 mb-3">
-			<label for="lastName">Last name</label>
-			<input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-			<div class="invalid-feedback">
-			Valid last name is required.
-			</div>
-		</div>
-	</div>
-
-	<div class="mb-3">
-		<label for="username">Username</label>
-		<div class="input-group">
-			<div class="input-group-prepend">
-			<span class="input-group-text">@</span>
-			</div>
-			<input type="text" class="form-control" id="username" placeholder="Username" required>
-			<div class="invalid-feedback" style="width: 100%;">
-			Your username is required.
-			</div>
-		</div>
-	</div>
-
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<div class="mb-3">
-		<label for="email">Email <span class="text-muted">(Optional)</span></label>
-		<input type="email" class="form-control" id="email" placeholder="you@example.com">
-		<div class="invalid-feedback">
-			Please enter a valid email address for shipping updates.
-		</div>
-	</div>
-	<hr class="mb-4">
-	<button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-</form>
-
-</div>
-</div>
-</div>
 @endsection

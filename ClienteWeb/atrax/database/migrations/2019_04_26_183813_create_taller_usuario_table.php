@@ -13,7 +13,7 @@ class CreateTallerUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('taller_usuario', function (Blueprint $table) {
+        Schema::create('taller_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('taller_id');
@@ -28,6 +28,6 @@ class CreateTallerUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tallere_usuario');
+        Schema::dropIfExists('taller_user');
     }
 }

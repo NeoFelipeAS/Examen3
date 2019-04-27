@@ -4,63 +4,60 @@
 
 @section('content')
 @include('layouts.nav-app')
-
-<div class="container py-5 mb5">
-
-  <h1 class="mb-5">Talleres</h1>
-
-  <div class="row py-4">
-    <div class="col-md-4 order-md-2 mb-4">
-
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Taller</span>
-
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Id</h6>
-            <small class="text-muted"></small>
-          </div>
-         <div>
-            <h6 class="my-1">Nombre</h6>
-            <small class="text-muted"></small>
-          </div>
-           <div>
-            <h6 class="my-2">Descripción</h6>
-            <small class="text-muted"></small>
-          </div>
-
-
-      </ul>
-
-
-    </div>
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Registrar taller</h4>
-      <form class="needs-validation" novalidate>
-        <div class="row">
-          <div class="col-md-8 mb-3">
-            <label for="Nombre">Nombre</label>
-            <input type="text" class="form-control" id="Nombre" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Es requerido el nombre del taller.
-            </div>
-          </div>
-
-        <div class="col-md-8 mb-3">
-          <label for="descripcion">Descripción</label>
-            <input type="text" class="form-control" id="descripcion"placeholder="" value="" required>
-            <div class="invalid-feedback" >
-              Es requerido una descripción del taller.
-            </div>
-          </div>
-        </div>
-        <hr class="col-md-8 mb-3">
-        <button class="btn btn-primary " type="submit">Registrar</button>
-      </form>
-    </div>
-  </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<h4 class="my-3 text-center">Registrar talle<span class="vim-caret">r</span></h4>
+			@if(auth()->user()->rol === 'administrador')
+			<form class="needs-validation border border-primary rounded p-2" method="post" action="crear-taller">
+                @csrf
+				<div class="form-group mb-3">
+					<label for="text">Nombre del taller</label>
+					<input type="text" class="form-control" name="name" required>
+				</div>
+				<div class="form-group mb-3">
+					<label for="text">Descripcion</label>
+					<textarea class="form-control" name="description" cols="20" rows="4" required></textarea>
+				</div>
+				<hr class="mb-4">
+				<button class="btn btn-primary btn-lg btn-block" type="submit">Registrar</button>
+			</form>
+			@endif
+		</div>
+		<div class="col-md-7 p-2">
+			<h1 class="text-center">Lista de talleres</h1>
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-bordered table-responsive">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Descripción</th>
+								<th scope="col">Cantidad de tecnicos</th>
+							</tr>
+						</thead>
+						<tbody class="font-weight-bold bg-light text-dark">
+						@foreach($talleres as $taller)
+							<tr>
+								<th>{{$taller->id}}</th>
+								<td>
+									{{$taller->nombre}}
+								</td>
+								<td>
+									{{$taller->descripcion}}
+								</td>
+								<td>
+									{{$taller->users()->count()}}
+								</td>
+							</tr>
+						@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @endsection

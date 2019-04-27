@@ -20,6 +20,8 @@ Route::get('/reportes', 'HomeController@reportes');
 
 Route::post('/subir-foto', 'HomeController@subirFoto');
 Route::post('/crear-usuario', 'HomeController@crearUsuario');
+Route::post('/crear-taller', 'HomeController@crearTaller');
+Route::post('/crear-cliente', 'HomeController@crearCliente');
 
 
 // Authentication Routes...

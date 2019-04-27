@@ -19,5 +19,10 @@ class DatabaseSeeder extends Seeder
         $user->rol = 'administrador';
         $user->foto = 'beach-boy-daytime-1121796.jpg';
         $user->save();
+
+        $taller = new App\Taller();
+        $taller->nombre = 'Taller Principal';
+        $taller->descripcion = 'Taller incluido con la aplicación';
+        $taller->save();
     }
 }

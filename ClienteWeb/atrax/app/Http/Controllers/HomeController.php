@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Taller;
+use App\Cliente;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,9 @@ class HomeController extends Controller
     }
     public function tiquetes()
     {
-        return view('tiquetes');
+        $clientes = Cliente::all();
+        $users = User::all();
+        return view('tiquetes', compact(['clientes','users']));
     }
     public function tiqueteDetalle()
     {
@@ -31,19 +35,22 @@ class HomeController extends Controller
     }
     public function talleres()
     {
-        return view('talleres');
+        $talleres = Taller::all();
+        return view('talleres', compact('talleres'));
     }
     public function usuarios()
     {
         if(Auth()->user()->rol === "tecnico") {
-            return redirect('/home')->with('status', 'Solo los administradores pueden acceder al modulo usuarios.');;
+            return redirect('/home')->with('status', 'Solo los administradores pueden acceder al modulo usuarios.');
         }
         $users = User::all();
-        return view('usuarios', compact('users'));
+        $talleres = Taller::all();
+        return view('usuarios', compact(['users','talleres']));
     }
     public function clientes()
     {
-        return view('clientes');
+        $clientes = Cliente::all();
+        return view('clientes', compact('clientes'));
     }
     public function facturas()
     {
@@ -73,7 +80,7 @@ class HomeController extends Controller
                 }
             }
         }
-        return redirect('/home');
+        return redirect('/home')->with('status', 'Foto actualizada con exito.');
     }
     public function crearUsuario(Request $request)
     {
@@ -83,6 +90,25 @@ class HomeController extends Controller
         $user->name = $request->name;
         $user->rol = 'tecnico';
         $user->save();
-        return redirect('/usuarios');
+        $user->talleres()->attach($request->taller);
+        return redirect('/usuarios')->with('status', 'Usuario creado.');
+    }
+    public function crearTaller(Request $request)
+    {
+        $taller = new Taller();
+        $taller->nombre = $request->name;
+        $taller->descripcion = $request->description;
+        $taller->save();
+        return redirect('/talleres')->with('status', 'Taller creado.');
+    }
+    public function crearCliente(Request $request)
+    {
+        $cliente = new Cliente();
+        $cliente->nombre = $request->nombre;
+        $cliente->correo = $request->correo;
+        $cliente->telefono = $request->telefono;
+        $cliente->direccion = $request->direccion;
+        $cliente->save();
+        return redirect('/clientes')->with('status', 'Cliente creado.');
     }
 }

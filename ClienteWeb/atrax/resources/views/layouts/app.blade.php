@@ -26,7 +26,10 @@
         <div id="app">
             @include('layouts.nav')
             @if (session('status'))
-            <div class="alert alert-info">
+            <div class="alert alert-info alert-dismissible fade show mx-5">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <i class="fas fa-exclamation-circle"></i> {{ session('status') }}
             </div>
         @endif

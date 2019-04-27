@@ -7,10 +7,10 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav mx-auto">
-					<a class="p-2 text-light" href="/tiquetes">Tiquetes <i class="fas fa-clipboard-list"></i></a>
+					<a class="p-2 text-light" href="/clientes">Clientes <i class="far fa-user"></i></a>
 					<a class="p-2 text-light" href="/talleres">Taller <i class="fas fa-tools"></i></a>
 					<a class="p-2 text-light" href="/usuarios">Usuarios <i class="fas fa-users"></i></a>
-					<a class="p-2 text-light" href="/clientes">Clientes <i class="far fa-user"></i></a>
+					<a class="p-2 text-light" href="/tiquetes">Tiquetes <i class="fas fa-clipboard-list"></i></a>
 					<a class="p-2 text-light" href="/facturas">Facturas <i class="fas fa-file-invoice"></i></a>
 				</div>
 				<div class="navbar-nav ml-auto">
